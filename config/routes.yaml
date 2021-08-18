@@ -1,0 +1,36 @@
+index:
+    path: /test/
+    controller: App\Controller\DefaultController::index
+
+add-question:
+    path: /add-question
+    controller: App\Controller\QuestionController::addQuestion
+    methods: POST|GET
+
+login: 
+    path: /login
+    controller: App\Controller\AdminController::login
+
+admin: 
+    path: /adminPanel
+    controller: App\Controller\AdminController::adminPanel
+    methods: POST|GET
+
+test: 
+    path: /admin-panel
+    controller: App\Controller\AdminController::approval   
+    
+delete:
+    path: /admin-panel/delete/question/{id}
+    controller: App\Controller\AdminController::deleteQuestion
+    methods: DELETE|GET
+
+updateTrue:
+    path: /admin-panel/update/question/{id}/true
+    controller: App\Controller\AdminController::updateTrueQuestion
+    methods: PUT|GET
+
+updateFalse:
+    path: /admin-panel/update/question/{id}/false
+    controller: App\Controller\AdminController::updateFalseQuestion
+    methods: PUT|GET

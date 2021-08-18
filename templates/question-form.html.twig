@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+   <style>
+      body {
+      background-color: lightblue;
+      }
+      h1 {
+      color: white;
+      text-align: center;
+      }
+      p {
+      font-family: verdana;
+      font-size: 20px;
+      }
+   </style>
+   <body>
+      <center>
+         <h1>SORU EKLEME SAYFASI</h1>
+         <hr>
+         <br><br>
+         {# action="AdminController.php" or action="{{ path('admin') }}" #}
+         <form action="{{ path('add-question')}}" method="POST">
+            <table>
+               <tr>
+                  <td>
+                     <p> Ad:</p>
+                  </td>
+                  <td> <input type="text" name="name" required> </td>
+               </tr>
+               <tr>
+                  <td>
+                     <p>Soyad:</p>
+                  </td>
+                  <td> <input type="text" name="surname" required> </td>
+               </tr>
+               <tr>
+                  <td>
+                     <p>E-Mail: </p>
+                  </td>
+                  <td> <input type="email" name="email" required> </td>
+               </tr>
+               <tr>
+                  <td>
+                     <p>Kategori:</p>
+                  </td>
+                  <td>    
+                     <select name ="category" required>
+                     {% for category in categories %}
+                     {% set selected = '' %}
+                     <option value="{{category.id}}" {{ selected }} required>{{category.name}}</option>
+                     {% endfor %}
+                     </select>
+                  </td>
+               </tr>
+               <tr>
+                  <td>
+                     <p> Soru:</p>
+                  </td>
+                  <td> <textarea name="question" required></textarea> </td>
+               </tr>
+               <tr>
+                  <td>
+                     <u>
+                        <p>Seçenekler:</p>
+                     </u>
+                  </td>
+                  <td> </td>
+               </tr>
+               {% for option in options %}
+               <tr>
+                  <td>
+                     <p>{{ option.name }}</p>
+                  </td>
+                  <td> <textarea name="{{ option.id }}" required></textarea> </td>
+               </tr>
+               {% endfor %}
+               <tr>
+                  <td>
+                     <p> Doğru Cevap: </p>
+                  </td>
+                  <td>
+                     {% for option in options %}
+                     {{ "#{option.name})" }}<input type="radio" name="correctAnswer" value="{{option.id}}" required>
+                     {% endfor %}
+                  </td>
+               </tr>
+               <tr>
+                  <td>
+                  </td>
+                  <td>
+                     <button type="submit" style="background-color:tomato;color:white;width:100px;height:50px">Gönder</button>
+                  </td>
+               </tr>
+            </table>
+            <br><br>
+         </form>
+      </center>
+   </body>
+   </table>
+</html>

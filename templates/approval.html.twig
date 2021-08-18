@@ -1,0 +1,82 @@
+<html>
+   <head>
+      <center>
+         <style>
+            #customers {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            }
+            #customers td, #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+            }
+            #customers tr:nth-child(even){background-color: #f2f2f2;}
+            #customers tr:hover {background-color: #ddd;}
+            #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #04AA6D;
+            color: white;
+            }
+         </style>
+      </center>
+   </head>
+   <body>
+      {% if questions is defined %}
+      <table id="customers">
+         <tr>
+            <th>Soru</th>
+            <th>Kategori</th>
+            <th>Seçenekler</th>
+            <th>Doğru Cevap</th>
+            <th>Ad</th>
+            <th>Soyad</th>
+            <th>E-Mail</th>
+            <th>Yayımlanma Durumu</th>
+         </tr>
+         {% for question in questions %}
+         <tr>
+            <td>{{ question.name }} </td>
+            <td>{{ question.categoryId.name }} </td>
+            <td>
+               {% for answer in question.answers %} 
+               {{ "#{answer.options.name})" }}
+               {{ answer.value}} <br> 
+               {% endfor %}
+            </td>
+            {% for answer in question.answers %} 
+            {% if answer.isCorrectAnswer == true %}
+            <td>
+               {{ answer.options.name}} 
+            </td>
+            {% endif %}
+            {% endfor %}
+            </td>
+            <td>
+               {{ question.user.name}} 
+            </td>
+            <td>
+               {{ question.user.surname}} 
+            </td>
+            <td>
+               {{ question.user.email}} 
+            </td>
+            {% if question.status == true %}
+            <td>
+               <button type="button" class="btn btn-primary"><a   href="{{ path('updateFalse', {id: question.id}) }}" data-method="PUT" > Pasife Al</a></button>
+               <button class="delete" ><a   href="{{ path('delete', {id: question.id}) }}" data-method="DELETE" > Sil </a></button>
+            </td>
+            {% else %}
+            <td><button type="button" class="btn btn-primary"><a   href="{{ path('updateTrue', {id: question.id}) }}" data-method="PUT" > Onayla</a></button>
+               <button class="delete" ><a   href="{{ path('delete', {id: question.id}) }}" data-method="DELETE" > Sil </a></button>
+            </td>
+         <tr>
+            {% endif %}
+         </tr>
+         {% endfor %}
+      </table>
+      {% endif %}
+   </body>
+</html>
